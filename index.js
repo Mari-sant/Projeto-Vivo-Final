@@ -59,7 +59,49 @@ $(function(){
        });
 
        localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
-       alert ("informações editadas")
+       alert ("informações editadas.")
+       operacao = "A"
+       return true;
+    }
+
+    // função para listar clientes
+    function Listar(){
+        $("#tbListar").html("");
+        $("tbListar").html (
+            "<thead>"+
+            "   <tr>"+
+            "<th></th>"+
+            " <th>Chamado</th>"+
+            " <th>DataChamado</th>"+
+            " <th>HoraChamado</th>"+
+            " <th>Categoria</th>"+
+            " <th>DescricaoProblema</th>"+
+            " <th>Usuarioa</th>"+
+            " <th>Prioridade/th>"+
+            " <th>Status</th>"+
+            "</tr>"+
+            "</thead>"+
+            "</tbody>"
+        );
+
+        //Malha de repetição para inserir todos os registros
+        for(var i in tbclientes){
+           var cli = JSON.parse(tbClientes[i]);
+           $("#tbListar tbody").append("<tr>"+
+                                       " <td><"
+           
+           
+           )
+
+
+
+        }
+
+
+
+
+
+    }
            
 
            
