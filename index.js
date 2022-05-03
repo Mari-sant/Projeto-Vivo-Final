@@ -88,7 +88,8 @@ $(function(){
         for(var i in tbclientes){
            var cli = JSON.parse(tbClientes[i]);
            $("#tbListar tbody").append("<tr>"+
-                                       " <td><"
+                                       " <td><img src="img/edi
+
            
            
            )
