@@ -146,10 +146,10 @@ $(function(){
     $("#categoria").val(cli.categoria),
     $("#desProblema").val(cli.Problema),
     $("#usuAbertura").val(cli.UsuAbertura),
-    $("prioridade").val(cli.prioridade),
-    $("status").val(cli.status);
-    $("  ").attr("readonly", "readonly"); //IMPORTANTE: ENTENDER COM O PROFESSOR COMO FICARIA AQUI
-    $("  ").focus(); //IMPORTANTE: ENTENDER COM O PROFESSOR COMO FICARIA AQUI
+    $("#prioridade").val(cli.prioridade),
+    $("#status").val(cli.status);
+    $("#chamado").attr("readonly", "readonly"); //IMPORTANTE: ENTENDER COM O PROFESSOR COMO FICARIA AQUI
+    $("#usuAbertura").focus(); //IMPORTANTE: ENTENDER COM O PROFESSOR COMO FICARIA AQUI
 
 
   });
