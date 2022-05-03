@@ -97,9 +97,6 @@ $(function(){
                                        " <td>"+cli.Status+"</td>" +
                                        "</tr>");
         }
-
-
-
         
      }
            
