@@ -88,25 +88,83 @@ $(function(){
         for(var i in tbclientes){
            var cli = JSON.parse(tbClientes[i]);
            $("#tbListar tbody").append("<tr>"+
-                                       " <td><img src="img/edi
-
-           
-           
-           )
-
-
-
+                                       " <td><img src='img/edit.png' alt='"+i+"' class='btnEditar'/><img src='img/delete.png' alt= '"+i+"' class='btnExcluir' /></td>" +
+                                       " <td>"+cli.Chamado+"</td>" +
+                                       " <td>"+cli.DataChamado+"</td>" +
+                                       " <td>"+cli.HoraChamado+"</td>" +
+                                       " <td>"+cli.Categoria+"</td>" +
+                                       " <td>"+cli.DescricaoProblema+"</td>" +
+                                       " <td>"+cli.Usuario+"</td>" +
+                                       " <td>"+cli.Prioridade+"</td>" +
+                                       " <td>"+cli.Status+"</td>" +
+                                       "</tr>");
         }
 
 
 
-
-
+        
     }
            
+// função para excluir registros
+function(){
+    tbClientes.splice(indice_selecionado, 1);
+    localStorage.setitem("tbClientes", JSON.stringify(tbClientes));
+    alert("Registro excluído");
+}    
 
-           
-        
+//Função para pesquisar Cliente
+function GetCliente(propriedade, valor){
+     var cli = null;
+     for (var item in tbClientes){
+         var i = JSON.parse(tbClientes[item]);
+         if (i[propriedade] == valor)
+         cli = i;
 
+     }
+     return cli;
 
 }
+
+//Chamado da função listar clientes
+Listar();
+
+//Ação com base nos eventos do formulário
+
+$("#form").on("submit", function(){
+    if(operacao == "A")
+       return Adicionar();
+
+       else
+        return Editar ();
+
+});
+    
+//Ação com base nos eventos de botao editar
+
+$("#tbListar").on("click", ".btnEditar", function(){
+    operacao = "E";
+    indice_selecionado = parseInt($ (this), attr ("alt"));
+    var cli = JSON.parse(tbClientes[indice_selecionado]);
+    $ ("#chamado").val(cli.chamado),
+    $("#datChamado").val(cli.datChamado),
+    $("#horChamado").val(cli.horChamado),
+    $("#categoria").val(cli.categoria),
+    $("#desProblema").val(cli.Problema),
+    $("#usuAbertura").val(cli.UsuAbertura),
+    $("prioridade").val(cli.prioridade),
+    $("status").val(cli.status);
+    $("  ").attr("readonly", "readonly"); //IMPORTANTE: ENTENDER COM O PROFESSOR COMO FICARIA AQUI
+    $("  ").focus(); //IMPORTANTE: ENTENDER COM O PROFESSOR COMO FICARIA AQUI
+
+
+});
+
+// Ação com base nos eventos do botão excluir
+$ ("#tbListar").on("Click", ".btnExcluir", function(){
+   indice_selecionado = parseInt($(this).attr("alt"));
+   Excluir();
+   Listar();
+
+});
+
+});
