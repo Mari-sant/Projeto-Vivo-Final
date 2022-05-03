@@ -1,6 +1,6 @@
 $(function(){
 
-    var operacao = "A";
+    var operacao = "A"; //"A"=Adição; "E"=Edição
     
     var indice_selecionado = -1; // retoma na posição anterior
 
@@ -11,18 +11,16 @@ $(function(){
     if(tbClientes == null)
        tbClientes == [];
 
-// função para adioionar registros
+      // função para adioionar registros
        function Adicionar(){
-
-  //variavel para verificar se numero de chamado já existe         
-        var cli = GetCliente( "chamado", $("#chamado").val());
+      //variavel para verificar se numero de chamado já existe         
+        var cli = GetCliente("chamado", $("#chamado").val());
         // caso exista é informado ao cliente
         if (cli != null){
             alert("código já castrado");
-            return
+            return;
         }
 
-       }
        //caso contrário insere
        var cliente = JSON.stringify({
            Chamado       : $("#chamado").val(),
@@ -33,11 +31,11 @@ $(function(){
            Usuario       : $("#usuAbertura").val(),
            Prioridade    : $("prioridade").val(),
            Status        : $("status").val()
-       }),
-       //adiciona as informações da variavel Cliente
-         tbClientes.push(Cliente);
+         });
 
- // aqui é inserido as informações TBClientes - Stringify converte valores em javascript para uma String  JSON
+          //adiciona as informações da variavel Cliente
+         tbClientes.push(Cliente);
+          // aqui é inserido as informações TBClientes - Stringify converte valores em javascript para uma String  JSON
          localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
 
          alert ("Registro adicionado.");
@@ -45,8 +43,8 @@ $(function(){
          return true;
        }
 
-       //função para editar clientes
- function Editar(){
+ //função para editar clientes
+  function Editar(){
     tbClientes[indice_selecionado] = JSON.stringify({
         Chamado       : $("#chamado").val(),
         Datachamado   : $("#datChamado").val(),
@@ -103,17 +101,17 @@ $(function(){
 
 
         
-    }
+     }
            
-// função para excluir registros
-function(){
-    tbClientes.splice(indice_selecionado, 1);
-    localStorage.setitem("tbClientes", JSON.stringify(tbClientes));
-    alert("Registro excluído");
-}    
+     // função para excluir registros
+       function(){
+     tbClientes.splice(indice_selecionado, 1);
+     localStorage.setitem("tbClientes", JSON.stringify(tbClientes));
+      alert("Registro excluído");
+     }    
 
-//Função para pesquisar Cliente
-function GetCliente(propriedade, valor){
+      //Função para pesquisar Cliente
+      function GetCliente(propriedade, valor){
      var cli = null;
      for (var item in tbClientes){
          var i = JSON.parse(tbClientes[item]);
@@ -123,25 +121,25 @@ function GetCliente(propriedade, valor){
      }
      return cli;
 
-}
 
-//Chamado da função listar clientes
-Listar();
 
-//Ação com base nos eventos do formulário
+    //Chamado da função listar clientes
+   Listar();
 
-$("#form").on("submit", function(){
+  //Ação com base nos eventos do formulário
+
+   $("#form").on("submit", function(){
     if(operacao == "A")
        return Adicionar();
 
        else
         return Editar ();
 
-});
+  });
     
-//Ação com base nos eventos de botao editar
+   //Ação com base nos eventos de botao editar
 
-$("#tbListar").on("click", ".btnEditar", function(){
+  $("#tbListar").on("click", ".btnEditar", function(){
     operacao = "E";
     indice_selecionado = parseInt($ (this), attr ("alt"));
     var cli = JSON.parse(tbClientes[indice_selecionado]);
@@ -157,14 +155,14 @@ $("#tbListar").on("click", ".btnEditar", function(){
     $("  ").focus(); //IMPORTANTE: ENTENDER COM O PROFESSOR COMO FICARIA AQUI
 
 
-});
+  });
 
-// Ação com base nos eventos do botão excluir
-$ ("#tbListar").on("Click", ".btnExcluir", function(){
+  // Ação com base nos eventos do botão excluir
+  $ ("#tbListar").on("Click", ".btnExcluir", function(){
    indice_selecionado = parseInt($(this).attr("alt"));
    Excluir();
    Listar();
 
-});
+  });
 
 });
