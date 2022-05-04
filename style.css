@@ -12,7 +12,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(to right, #b16bd1, #a579da, #9a86e1, #9192e5, #8a9ce7, #7aa6ed, #69aff0, #5bb7f1, #2cc1f1, #00cbea, #00d2dd, #00d9cb);
+    background-image: linear-gradient(to right, #910ed9, #993ce2, #a259ea, #ac71f1, #b688f7, #bb8af9, #bf8dfc, #c48ffe, #c57dfc, #c868f9, #cb4ff4, #d02aed);
+
 
 }
 
