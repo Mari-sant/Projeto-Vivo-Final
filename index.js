@@ -29,8 +29,8 @@ $(function(){
            Categoria     : $("#categoria").val(),
            DesProblema   : $("#desProblema").val(),
            Usuario       : $("#usuAbertura").val(),
-           Prioridade    : $("prioridade").val(),
-           Status        : $("status").val()
+           Prioridade    : $("#prioridade").val(),
+           Status        : $("#status").val()
          });
 
           //adiciona as informações da variavel Cliente
@@ -52,8 +52,8 @@ $(function(){
         Categoria     : $("#categoria").val(),
         DesProblema   : $("#desProblema").val(),
         Usuario       : $("#usuAbertura").val(),
-        Prioridade    : $("prioridade").val(),
-        Status        : $("status").val(),
+        Prioridade    : $("#prioridade").val(),
+        Status        : $("#status").val(),
        });
 
        localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
@@ -65,7 +65,7 @@ $(function(){
     // função para listar clientes
     function Listar(){
         $("#tbListar").html("");
-        $("tbListar").html (
+        $("#tbListar").html (
             "<thead>"+
             "   <tr>"+
             "<th></th>"+
@@ -79,7 +79,10 @@ $(function(){
             " <th>Status</th>"+
             "</tr>"+
             "</thead>"+
+            "<tbody>"+
             "</tbody>"
+
+            
         );
 
         //Malha de repetição para inserir todos os registros
@@ -91,7 +94,7 @@ $(function(){
                                        " <td>"+cli.DataChamado+"</td>" +
                                        " <td>"+cli.HoraChamado+"</td>" +
                                        " <td>"+cli.Categoria+"</td>" +
-                                       " <td>"+cli.DescricaoProblema+"</td>" +
+                                       " <td>"+cli.desProblema+"</td>" +
                                        " <td>"+cli.Usuario+"</td>" +
                                        " <td>"+cli.Prioridade+"</td>" +
                                        " <td>"+cli.Status+"</td>" +
@@ -101,7 +104,7 @@ $(function(){
      }
            
      // função para excluir registros
-       function(){
+        function Excluir(){
      tbClientes.splice(indice_selecionado, 1);
      localStorage.setitem("tbClientes", JSON.stringify(tbClientes));
       alert("Registro excluído");
@@ -117,7 +120,7 @@ $(function(){
 
      }
      return cli;
-
+      }
 
 
     //Chamado da função listar clientes
@@ -138,13 +141,13 @@ $(function(){
 
   $("#tbListar").on("click", ".btnEditar", function(){
     operacao = "E";
-    indice_selecionado = parseInt($ (this), attr ("alt"));
+    indice_selecionado = parseInt($(this).attr("alt"));
     var cli = JSON.parse(tbClientes[indice_selecionado]);
     $ ("#chamado").val(cli.chamado),
     $("#datChamado").val(cli.datChamado),
     $("#horChamado").val(cli.horChamado),
     $("#categoria").val(cli.categoria),
-    $("#desProblema").val(cli.Problema),
+    $("#desProblema").val(cli.desProblema),
     $("#usuAbertura").val(cli.UsuAbertura),
     $("#prioridade").val(cli.prioridade),
     $("#status").val(cli.status);
