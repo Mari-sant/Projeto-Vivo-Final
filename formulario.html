@@ -51,7 +51,7 @@
 
                  <!--colocando link da página de consulta-->     
                       <li class="nav-item">
-                        <a class="nav-link" href="página de consulta copy.html">Consulta</a>
+                        <a class="nav-link" href="consulta.html">Consulta</a>
                       </li>
           
                   </div>
@@ -67,10 +67,11 @@
         </div>
         
         <!--formulário-->
+      
 
         <div class="form">
             <!-- # não tem nenhuma ação, precisa do back -->
-            <form action="#" method="post">
+            <form action="#" method="post" id="form">
                 <div class="form-header">
                     <div class="title"> 
                      <h1> - Abrir Chamado -</h1>
@@ -80,7 +81,7 @@
                     <div class="input-box">
                         <div class="inputBox">
                             <label>Chamado:</label>
-                            <input type="number" name="Chamado" id="Chamado" >
+                            <input type="number" name="chamado" id="chamado" >
                         </div>
                         <br>
                         <div class="input-box">
@@ -96,13 +97,13 @@
                         <br>
 
                         <div class="input-box">
-                            <label>Categoria:</label>
-                            <input type="text" name="Categoria" id="categoria">
+                            <label>Descrição do Problema:</label>
+                            <input type="text" name="desProblema" id="desProblema">
                         </div>
                         <br>
                         <div class="input-box">
-                            <label>Descrição do Problema:</label>
-                            <select id ="desProblema">
+                            <label>Categoria:</label>
+                            <select id ="categoria">
                                 <option> </option>
                                 <option> Hardware</optin>
                                 <option> Software</option>
@@ -138,20 +139,23 @@
                         </div>
                         <br>
 
+                        
                         <!--botão de enviar-->
-                        <button type="submit" class="btn btn-primary"><a href="página de consulta copy.html">Enviar</a> </button> 
+                        <button type="submit" class="btn btn-primary" id="btnSalvar"><a href="consulta.html">Enviar</a> </button> 
                        
                     </div>
 
                 </div>
-                <div class="continue-button"></div>          
+                        
                                                
             </form>
+
             
             
 
         </div>
     </div>
+
    
 </body>
 </html>
