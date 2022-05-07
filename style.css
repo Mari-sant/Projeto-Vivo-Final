@@ -20,12 +20,15 @@ body{
     color: black;
     position:relative;
     text-align: left;
+    font-family: sans-serif;
+    margin-bottom: 10rem;
 }
 
 .texto2 {
     color: black;
     position:relative;
     text-align: right;
+    font-family: sans-serif;
 }
 
 .logo {
@@ -151,6 +154,23 @@ box-shadow: 5px 5px 10px rgba(0,0,0, .212);
     cursor: pointer
 }
 
+table{
+    width: 80%;
+    margin: 40px auto;
+    background-color: #6c63ff;
+}
+
+table.list {
+    width: 50%;
+    margin: 40px auto;
+    background-color: #6c63ff;
+    width: 100%;
+}
+
+td{
+    text-align: left;
+    padding: 8px 15px;
+}
 
 @media screen and (max-width:1330px) {
     .form-image{

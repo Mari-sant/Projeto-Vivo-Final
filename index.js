@@ -1,4 +1,4 @@
-$(function(){
+$(function(){ 
 
     var operacao = "A"; //"A"=Adição; "E"=Edição
     
@@ -8,6 +8,8 @@ $(function(){
 
     tbClientes = JSON.parse(tbClientes);// analisa uma string (sequencia ou cadeias de caracteres) JSON construindo o valor ou um objeto JS descrito pela string
 
+
+    
     if(tbClientes == null)
        tbClientes == [];
 
@@ -20,25 +22,27 @@ $(function(){
             alert("código já castrado");
             return;
         }
-
        //caso contrário insere
        var cliente = JSON.stringify({
-           Chamado       : $("#chamado").val(),
-           Datachamado   : $("#datChamado").val(),
-           HoraChamado   : $("#horChamado").val(),
-           Categoria     : $("#categoria").val(),
-           DesProblema   : $("#desProblema").val(),
+           chamado       : $("#chamado").val(),
+           datchamado   : $("#datChamado").val(),
+           horChamado   : $("#horChamado").val(),
+           categoria     : $("#categoria").val(),
+           desProblema   : $("#desProblema").val(),
            Usuario       : $("#usuario").val(),
            Prioridade    : $("#Prioridade").val(),
            Status        : $("#Status").val()
          });
 
+         
           //adiciona as informações da variavel Cliente
          tbClientes.push(cliente);
+    
           // aqui é inserido as informações TBClientes - Stringify converte valores em javascript para uma String  JSON
          localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
-
+         
          alert ("Registro adicionado.");
+      
 
          return true;
        }
@@ -70,10 +74,10 @@ $(function(){
             "   <tr>"+
             "<th></th>"+
             " <th>Chamado</th>"+
-            " <th>DataChamado</th>"+
-            " <th>HoraChamado</th>"+
+            " <th>Data</th>"+
+            " <th>Hora</th>"+
             " <th>Categoria</th>"+
-            " <th>DescricaoProblema</th>"+
+            " <th>Descrição</th>"+
             " <th>Usuario</th>"+
             " <th>Prioridade</th>"+
             " <th>Status</th>"+
@@ -106,7 +110,7 @@ $(function(){
      // função para excluir registros
         function Excluir(){
      tbClientes.splice(indice_selecionado, 1);
-     localStorage.setitem("tbClientes", JSON.stringify(tbClientes));
+     localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
       alert("Registro excluído");
      }    
 
@@ -128,7 +132,7 @@ $(function(){
 
   //Ação com base nos eventos do formulário
 
-   $("#form").on("submit", function(){
+   $("#form2").on("submit", function(){
     if(operacao == "A")
        return Adicionar();
          
@@ -139,10 +143,10 @@ $(function(){
     
    //Ação com base nos eventos de botao editar
 
-  $("#tbListar").on("click", ".btnEditar", function(){
-    operacao = "E";
-    indice_selecionado = parseInt($(this).attr("alt"));
-    var cli = JSON.parse(tbClientes[indice_selecionado]);
+   $("#tbListar").on("click", ".btnEditar", function(){
+		operacao = "E";
+		indice_selecionado = parseInt($(this).attr("alt"));
+		var cli = JSON.parse(tbClientes[indice_selecionado]);
     $("#chamado").val(cli.chamado),
     $("#datChamado").val(cli.datChamado),
     $("#horChamado").val(cli.horChamado),
@@ -152,17 +156,18 @@ $(function(){
     $("#Prioridade").val(cli.Prioridade),
     $("#Status").val(cli.Status);
     $("#chamado").attr("readonly", "readonly"); //IMPORTANTE: ENTENDER COM O PROFESSOR COMO FICARIA AQUI
-    $("#usuario").focus(); //IMPORTANTE: ENTENDER COM O PROFESSOR COMO FICARIA AQUI
+    $("#Status").focus(); //IMPORTANTE: ENTENDER COM O PROFESSOR COMO FICARIA AQUI
 
 
   });
 
   // Ação com base nos eventos do botão excluir
-  $ ("#tbListar").on("Click", ".btnExcluir",function(){
-   indice_selecionado = parseInt($(this).attr("alt"));
-   Excluir();
-   Listar();
+  $("#tbListar").on("click", ".btnExcluir", function(){
+		indice_selecionado = parseInt($(this).attr("alt"));
+		Excluir();
+		Listar();
+	});
 
-  });
+ 
 
 });
