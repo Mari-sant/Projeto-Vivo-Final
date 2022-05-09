@@ -68,7 +68,7 @@ $(function(){
 
     // função para listar clientes
     function Listar(){
-        $("#tbListar").html("");
+        $("#tbListar ").html("");
         $("#tbListar").html (
             "<thead>"+
             "   <tr>"+
