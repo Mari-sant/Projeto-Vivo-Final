@@ -4,9 +4,9 @@ $(function(){
     
     var indice_selecionado = -1; // retoma na posição anterior
 
-    var tbClientes = localStorage.getItem("tbClientes"); // recupera os dados armazenados
+    var tbClientes = localStorage.getItem("tbClientes"); // recupera os dados armazenados a partir da sua chave
 
-    tbClientes = JSON.parse(tbClientes);// analisa uma string (sequencia ou cadeias de caracteres) JSON construindo o valor ou um objeto JS descrito pela string
+    tbClientes = JSON.parse(tbClientes);// transforma um item no formato JASON no seu formato original
 
 
     
@@ -15,14 +15,14 @@ $(function(){
 
       // função para adiCionar registros
        function Adicionar(){
-      //variavel para verificar se numero de chamado já existe         
+      //variavel para verificar se numero de chamado já existe        
         var cli = GetCliente("chamado", $("#chamado").val());
         // caso exista é informado ao cliente
         if (cli != null){
             alert("código já castrado");
             return;
         }
-       //caso contrário insere
+       //caso contrário insere. (JSON.stringify - armazena os dados e tranforma um objeto em string))
        var cliente = JSON.stringify({
            chamado       : $("#chamado").val(),
            datchamado   : $("#datChamado").val(),
