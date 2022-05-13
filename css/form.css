@@ -1,0 +1,130 @@
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.logo {
+
+    background-image: linear-gradient(to right, #910ed9, #993ce2, #a259ea, #ac71f1, #b688f7, #bb8af9, #bf8dfc, #c48ffe, #c57dfc, #c868f9, #cb4ff4, #d02aed);
+}
+
+h2 {
+    color: black;
+}
+
+#index {
+    background-image: linear-gradient(to right, #910ed9, #993ce2, #a259ea, #ac71f1, #b688f7, #bb8af9, #bf8dfc, #c48ffe, #c57dfc, #c868f9, #cb4ff4, #d02aed);
+    text-align: center;
+    padding: 40px;
+    font-size: 1em;
+    color: black;
+
+}
+
+.container-fluid {
+    width: 80%;
+    /* display: flex; */
+    box-shadow: 6px 5px 10px rgba(0, 0, 0, .212);
+}
+
+#frmChamado {
+    width: 50%;
+    border: 1px solid white;
+    border-radius: 10px;
+    text-align: center;
+    display: inline-block;
+    margin-top: 4%;
+    padding: 1%;
+    background-image: linear-gradient(to right, #910ed9, #993ce2, #a259ea, #ac71f1, #b688f7, #bb8af9, #bf8dfc, #c48ffe, #c57dfc, #c868f9, #cb4ff4, #d02aed);
+    margin: auto;
+
+}
+
+.form_group,
+input,
+select,
+textarea,
+btnSalvar {
+    border-radius: 5px;
+    padding: 0.2em;
+
+}
+
+.form_group,
+label {
+    margin-bottom: 0.2em;
+    display: block;
+    text-align: justify;
+}
+
+.form_control {
+    width: 100%;
+    height: 2rem;
+    box-sizing: border-box;
+}
+
+
+.input_area {
+    width: 100%;
+    height: 5rem;
+    box-sizing: border-box;
+}
+
+#btnSalvar {
+    text-align: center;
+    padding: 10px;
+}
+
+.submit_button {
+    padding: 10px 15px;
+    border: 1px solid purple;
+    background-color: rgb(186, 126, 186);
+    color: white;
+
+}
+
+
+#tblListar {
+    width: 100%;
+    border: solid 1px;
+    text-align: center;
+    border-collapse: collapse;
+    border: solid white 1px;
+
+}
+
+#tblListar tbody tr {
+    border: solid white 1px;
+    height: 30px;
+    text-align: center;
+    background-color: rgb(240, 202, 248);
+
+}
+
+#tblListar thead {
+    background-image: linear-gradient(to right, #910ed9, #993ce2, #a259ea);
+}
+
+
+btnSalvar:hover {
+    background-position: left bottom;
+    background-image: linear-gradient(to right, #910ed9, #993ce2, #a259ea, #d02aed);
+    color: black;
+    cursor: pointer;
+}
+
+@media screen and (max-width:1330px) {
+    .form-image {
+        display: none;
+
+    }
+
+    .container {
+        width: 50%;
+    }
+
+    #frmChamado {
+        width: 100%
+    }
+}
