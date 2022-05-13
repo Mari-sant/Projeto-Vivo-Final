@@ -122,11 +122,11 @@ box-shadow: 5px 5px 10px rgba(0,0,0, .212);
 
 
 .input-box input :hover{
-    background-color: #eeee75
+    background-color: #eeee75;
 }
 
 .input.box input: focus-visible{
-    outline:1px solid #6c63ff;
+    outline:1px, solid, #6c63ff;
 
 }
 

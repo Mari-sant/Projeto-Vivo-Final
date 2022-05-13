@@ -1,173 +1,235 @@
-$(function(){ 
+$(function () {
 
-    var operacao = "A"; //"A"=Adição; "E"=Edição
-    
-    var indice_selecionado = -1; // retoma na posição anterior
+  var operacao = "A"; //"A"=Adição; "E"=Edição
 
-    var tbClientes = localStorage.getItem("tbClientes"); // recupera os dados armazenados
+  var indice_selecionado = -1; // ao armazenar eles e listar ele vai estar
 
-    tbClientes = JSON.parse(tbClientes);// analisa uma string (sequencia ou cadeias de caracteres) JSON construindo o valor ou um objeto JS descrito pela string
+  var tbChamados = localStorage.getItem("tbChamados");// Recupera os dados armazenados
 
+  tbChamados = JSON.parse(tbChamados); // Converte string para objeto
 
-    
-    if(tbClientes == null)
-       tbClientes == [];
+  if (tbChamados == null) // Caso não haja conteúdo, iniciamos um vetor vazio
+    tbChamados = [];
 
-      // função para adiCionar registros
-       function Adicionar(){
-      //variavel para verificar se numero de chamado já existe         
-        var cli = GetCliente("chamado", $("#chamado").val());
-        // caso exista é informado ao cliente
-        if (cli != null){
-            alert("código já castrado");
-            return;
-        }
-       //caso contrário insere
-       var cliente = JSON.stringify({
-           chamado       : $("#chamado").val(),
-           datchamado   : $("#datChamado").val(),
-           horChamado   : $("#horChamado").val(),
-           categoria     : $("#categoria").val(),
-           desProblema   : $("#desProblema").val(),
-           Usuario       : $("#usuario").val(),
-           Prioridade    : $("#Prioridade").val(),
-           Status        : $("#Status").val()
-         });
-
-         
-          //adiciona as informações da variavel Cliente
-         tbClientes.push(cliente);
-    
-          // aqui é inserido as informações TBClientes - Stringify converte valores em javascript para uma String  JSON
-         localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
-         
-         alert ("Registro adicionado.");
-      
-
-         return true;
-       }
-
- //função para editar clientes
-  function Editar(){
-    tbClientes[indice_selecionado] = JSON.stringify({
-        chamado       : $("#chamado").val(),
-        datChamado   : $("#datChamado").val(),
-        horChamado   : $("#horChamado").val(),
-        categoria     : $("#categoria").val(),
-        desProblema   : $("#desProblema").val(),
-        usuario       : $("#usuario").val(),
-        Prioridade    : $("#Prioridade").val(),
-        Status        : $("#Status").val(),
-       });
-
-       localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
-       alert ("informações editadas.")
-       operacao = "A"
-       return true;
+  // Função para adicionar registros
+  function Adicionar() {
+    //variável para verificar se número de código já existe
+    var cha = GetCliente("Codigo", $("#Codigo").val());
+    // Caso existe é informado ao cliente
+    if (cha != null) {
+      alert("Código já cadastrado.");
+      return;
     }
+    // caso contrário insere
+    var add = JSON.stringify({
+      Codigo: $("#Codigo").val(),
+      Data: $("#Data").val(),
+      Horario: $("#Hora").val(),
+      Categoria: $("#Categoria").val(),
+      Problema: $("#Problema").val(),
+      Usuario: $("#Usuario").val(),
+      Prioridade: $("#Prioridade").val(),
+      Status: $("#Status").val()
+    });
 
-    // função para listar clientes
-    function Listar(){
-        $("#tbListar").html("");
-        $("#tbListar").html (
-            "<thead>"+
-            "   <tr>"+
-            "<th></th>"+
-            " <th>Chamado</th>"+
-            " <th>Data</th>"+
-            " <th>Hora</th>"+
-            " <th>Categoria</th>"+
-            " <th>Descrição</th>"+
-            " <th>Usuario</th>"+
-            " <th>Prioridade</th>"+
-            " <th>Status</th>"+
-            "</tr>"+
-            "</thead>"+
-            "<tbody>"+
-            "</tbody>"
+    tbChamados.push(add);
 
-            
-        );
+    localStorage.setItem("tbChamados", JSON.stringify(tbChamados));
 
-        //Malha de repetição para inserir todos os registros
-        for(var i in tbClientes){
-           var cli = JSON.parse(tbClientes[i]);
-           $("#tbListar tbody").append("<tr>");
-           $("#tbListar tbody").append("<td><img src='img/edit.png' alt='"+i+"' class='btnEditar'/><img src='img/delete.png' alt= '"+i+"' class='btnExcluir' /></td>" );
-           $("#tbListar tbody").append("<td>"+cli.chamado+"</td>");
-           $("#tbListar tbody").append("<td>"+cli.datChamado+"</td>");
-           $("#tbListar tbody").append("<td>"+cli.horChamado+"</td>");
-           $("#tbListar tbody").append("<td>"+cli.categoria+"</td>");
-           $("#tbListar tbody").append("<td>"+cli.desProblema+"</td>");
-           $("#tbListar tbody").append("<td>"+cli.usuario+"</td>");
-           $("#tbListar tbody").append("<td>"+cli.Prioridade+"</td>");
-           $("#tbListar tbody").append("<td>"+cli.Status+"</td>");
-           $("#tbListar tbody").append("</tr>");
-        }
-        
-     }
-           
-     // função para excluir registros
-        function Excluir(){
-     tbClientes.splice(indice_selecionado, 1);
-     localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
-      alert("Registro excluído");
-     }    
+    alert("Chamado aberto com sucesso.");
 
-      //Função para pesquisar Cliente
-      function GetCliente(propriedade, valor){
-     var cli = null;
-     for (var item in tbClientes){
-         var i = JSON.parse(tbClientes[item]);
-         if (i[propriedade] == valor)
-         cli = i;
+    return true;
+  }
+  // Adicionar data automatica
+  var data = new Date();
 
-     }
-     return cli;
-      }
+  // Guarda cada pedaço em uma variável
+  var mes = data.getMonth();          // 0-11 (zero=janeiro)
+  var dia = data.getDate();           // 1-31
+  var dia_sem = data.getDay();            // 0-6 (zero=domingo)
+  var ano2 = data.getYear();           // 2 dígitos
+  var ano4 = data.getFullYear();       // 4 dígitos
+  var hora = data.getHours();          // 0-23
+  var min = data.getMinutes();        // 0-59
+  var seg = data.getSeconds();        // 0-59
+  var mseg = data.getMilliseconds();   // 0-999
+  var tz = data.getTimezoneOffset(); // em minutos
+
+  if (dia < 10) {
+    dia = '0' + (dia);
+  }
+
+  if (mes < 10) {
+    mes = '0' + (mes + 1);
+  }
+
+  // Formata a data e a hora (note o mês + 1)
+  var str_data_teste = dia + '/' + mes + '/' + ano4; // Brasil
+  var str_data_Brazil = ano4 + '-' + mes + '-' + dia; // europeu
+  // Mostra o resultado
+  // alert('Hoje é ' + str_data + ' às ' + str_hora);
+  $("#Data").val(str_data_Brazil);
+
+  var str_hora = hora + ':' + min + ':' + seg;
+  $("#Hora").val(str_hora);
+
+  // Função para editar chamados
+  function Editar() {
+    tbChamados[indice_selecionado] = JSON.stringify({
+      Codigo: $("#Codigo").val(),
+      Data: $("#Data").val(),
+      Horario: $("#Hora").val(),
+      Categoria: $("#Categoria").val(),
+      Problema: $("#Problema").val(),
+      Usuario: $("#Usuario").val(),
+      Prioridade: $("#Prioridade").val(),
+      Status: $("#Status").val()
+    });
+
+    localStorage.setItem("tbChamados", JSON.stringify(tbChamados));
+    alert("Informações editadas.")
+    operacao = "A";
+    return true;
+  }
+  // Função para listar chamados
+  function Listar() {
+    $("#tblListar").html("");
+    $("#tblListar").html(
+      "<thead>" +
+      "	<tr>" +
+      "<th></th>" +
+      "	<th>Chamado</th>" +
+      "	<th>Data</th>" +
+      "	<th>Horário</th>" +
+      "	<th>Categoria</th>" +
+      "	<th>Problema</th>" +
+      "	<th>Usuário</th>" +
+      "	<th>Prioridade</th>" +
+      "	<th>Status</th>" +
+      "	</tr>" +
+      "</thead>" +
+      "<tbody>" +
+      "</tbody>"
+    );
+
+    // Malha de repetição para inserir todos os registros
+    for (var i in tbChamados) {
+      var cli = JSON.parse(tbChamados[i]);
+      $("#tblListar tbody").append("<tr>" +
+        "	<td><img src='/img/edit.png' alt='" + i + "' class='btnEditar'/><img src='/img/delete.png' alt='" + i + "' class='btnExcluir'/></td>" +
+        "	<td>" + cli.Codigo + "</td>" +
+        "	<td>" + cli.Data + "</td>" +
+        "	<td>" + cli.Horario + "</td>" +
+        "	<td>" + cli.Categoria + "</td>" +
+        "	<td>" + cli.Problema + "</td>" +
+        "	<td>" + cli.Usuario + "</td>" +
+        "	<td>" + cli.Prioridade + "</td>" +
+        "	<td>" + cli.Status + "</td>" +
+        "</tr>");
+    }
+  }
+  // Função para excluir registros
+
+  function Excluir() {
+    var resposta = confirm("Deseja excluir esse chamado?");
+    if (resposta == true) {
+      tbChamados.splice(indice_selecionado, 1);
+      localStorage.setItem("tbChamados", JSON.stringify(tbChamados));
+      alert("Chamado excluído com sucesso.");
+    }
+  }
 
 
-    //Chamado da função listar clientes
-   Listar();
+  // Função par pesquisar cliente
+  function GetCliente(propriedade, valor) {
+    var cli = null;
+    for (var item in tbChamados) {
+      var i = JSON.parse(tbChamados[item]);
+      if (i[propriedade] == valor)
+        cli = i;
+    }
+    return cli;
+  }
 
-  //Ação com base nos eventos do formulário
+  // Chamada da função listar chamados
+  Listar();
 
-   $("#form2").on("submit", function(){
-    if(operacao == "A")
-       return Adicionar();
-         
-       else
-        return Editar ();
-
+  // Ação com base nos eventos de formulário
+  $("#frmChamado").on("submit", function () {
+    if (operacao == "A")
+      return Adicionar();
+    else
+      return Editar();
   });
-    
-   //Ação com base nos eventos de botao editar
-
-   $("#tbListar").on("click", ".btnEditar", function(){
-		operacao = "E";
-		indice_selecionado = parseInt($(this).attr("alt"));
-		var cli = JSON.parse(tbClientes[indice_selecionado]);
-    $("#chamado").val(cli.chamado),
-    $("#datChamado").val(cli.datChamado),
-    $("#horChamado").val(cli.horChamado),
-    $("#categoria").val(cli.categoria),
-    $("#desProblema").val(cli.desProblema),
-    $("#usuario").val(cli.usuario),
-    $("#Prioridade").val(cli.Prioridade),
+  // Ação com base nos eventos do botão Editar
+  $("#tblListar").on("click", ".btnEditar", function () {
+    operacao = "E";
+    indice_selecionado = parseInt($(this).attr("alt"));
+    var cli = JSON.parse(tbChamados[indice_selecionado]);
+    $("#Codigo").val(cli.Codigo);
+    $("#Data").val(cli.Data);
+    $("#Hora").val(cli.Hora);
+    $("#Categoria").val(cli.Categoria);
+    $("#Problema").val(cli.Problema);
+    $("#Usuario").val(cli.Usuario);
+    $("#Prioridade").val(cli.Prioridade);
     $("#Status").val(cli.Status);
-    $("#chamado").attr("readonly", "readonly"); //IMPORTANTE: ENTENDER COM O PROFESSOR COMO FICARIA AQUI
-    $("#Status").focus(); //IMPORTANTE: ENTENDER COM O PROFESSOR COMO FICARIA AQUI
+    $("#Codigo").attr("readonly", "readonly");
+    $("#Nome").focus();
+  });
 
+  // Código automatico
+
+  var ultimo = JSON.parse(tbChamados.slice(-1));
+  var ultconv = parseInt(ultimo.Codigo);
+  $("#Codigo").val(ultconv + 1);
+
+
+             
+  
+  
+  // Status
+  // if (pessoa == "Wilson") {
+  //   $("#txtStatus").val('Em aberto');
+  //   } else
+  //   $("#txtStatus").val('Em andamento');
+  //   });
+    
+    /* Ação com base nos eventos do botão novo
+    $( "#btnNovo").click(function() {
+    
+    $("#txtNome").prop('disabled', false);
+    $("#txtTelefone").prop('disabled', false);
+
+    
+    $("#txtEmail").prop('disabled', false);
+    
+     });*/
+    
+
+  // Ação com base nos eventos do botão Excluir
+  $("#tblListar").on("click", ".btnExcluir", function () {
+    indice_selecionado = parseInt($(this).attr("alt"));
+    Excluir();
+    Listar();
+
+
+
+
+    /* Ação com base nos eventos do botão novo
+    $( "#btnNovo").click(function() {
+    
+     $("#txtNome").prop('disabled', false);
+     $("#txtTelefone").prop('disabled', false);
+    $("#txtEmail").prop('disabled', false);
+    
+     });*/
+
+
+    // Obtém a data/hora atual
 
   });
 
-  // Ação com base nos eventos do botão excluir
-  $("#tbListar").on("click", ".btnExcluir", function(){
-		indice_selecionado = parseInt($(this).attr("alt"));
-		Excluir();
-		Listar();
-	});
 
- 
 
 });
