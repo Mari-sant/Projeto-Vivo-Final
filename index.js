@@ -11,10 +11,12 @@ $(function () {
   if (tbChamados == null) // Caso não haja conteúdo, iniciamos um vetor vazio
     tbChamados = [];
 
-  // Função para adicionar registros
-  function Adicionar() {
+
+  // Função para CRIAR chamados
+  function Criar() {
     //variável para verificar se número de código já existe
     var cha = GetCliente("Codigo", $("#Codigo").val());
+
     // Caso existe é informado ao cliente
     if (cha != null) {
       alert("Código já cadastrado.");
@@ -40,13 +42,16 @@ $(function () {
 
     return true;
   }
+
+
+
   // Adicionar data automatica
   var data = new Date();
-
+  
   // Guarda cada pedaço em uma variável
-  var mes = data.getMonth();          // 0-11 (zero=janeiro)
   var dia = data.getDate();           // 1-31
   var dia_sem = data.getDay();            // 0-6 (zero=domingo)
+  var mes = data.getMonth();          // 0-11 (zero=janeiro)
   var ano2 = data.getYear();           // 2 dígitos
   var ano4 = data.getFullYear();       // 4 dígitos
   var hora = data.getHours();          // 0-23
@@ -58,22 +63,24 @@ $(function () {
   if (dia < 10) {
     dia = '0' + (dia);
   }
-
+  
   if (mes < 10) {
     mes = '0' + (mes + 1);
   }
-
+  var str_hora = hora + ':' + min + ':' + seg;
+  $("#Hora").val(str_hora);
+  
+  // if(hora < 10){
+  //   hora = '0' + (hora + 0)
+  // }
   // Formata a data e a hora (note o mês + 1)
   var str_data_teste = dia + '/' + mes + '/' + ano4; // Brasil
   var str_data_Brazil = ano4 + '-' + mes + '-' + dia; // europeu
   // Mostra o resultado
   // alert('Hoje é ' + str_data + ' às ' + str_hora);
   $("#Data").val(str_data_Brazil);
-
-  var str_hora = hora + ':' + min + ':' + seg;
-  $("#Hora").val(str_hora);
-
-  // Função para editar chamados
+  
+  // Função para EDITAR chamados
   function Editar() {
     tbChamados[indice_selecionado] = JSON.stringify({
       Codigo: $("#Codigo").val(),
@@ -91,8 +98,10 @@ $(function () {
     operacao = "A";
     return true;
   }
-  // Função para listar chamados
-  function Listar() {
+  
+  
+  // Função para LER chamados
+  function Ler() {
     $("#tblListar").html("");
     $("#tblListar").html(
       "<thead>" +
@@ -115,10 +124,13 @@ $(function () {
     // Malha de repetição para inserir todos os registros
     for (var i in tbChamados) {
       var cli = JSON.parse(tbChamados[i]);
+      // Formatar data para o format brasileiro dia, mes, ano
+      var dtfinal = cli.Data.substring(8, 10) + "/" + cli.Data.substring(5, 7) + "/" + cli.Data.substring(0, 4);
+      
       $("#tblListar tbody").append("<tr>" +
         "	<td><img src='/img/edit.png' alt='" + i + "' class='btnEditar'/><img src='/img/delete.png' alt='" + i + "' class='btnExcluir'/></td>" +
         "	<td>" + cli.Codigo + "</td>" +
-        "	<td>" + cli.Data + "</td>" +
+        "	<td>" + dtfinal + "</td>" +
         "	<td>" + cli.Horario + "</td>" +
         "	<td>" + cli.Categoria + "</td>" +
         "	<td>" + cli.Problema + "</td>" +
@@ -128,8 +140,7 @@ $(function () {
         "</tr>");
     }
   }
-  // Função para excluir registros
-
+  // Função para EXCLUIR chamados
   function Excluir() {
     var resposta = confirm("Deseja excluir esse chamado?");
     if (resposta == true) {
@@ -152,15 +163,16 @@ $(function () {
   }
 
   // Chamada da função listar chamados
-  Listar();
+  Ler();
 
   // Ação com base nos eventos de formulário
   $("#frmChamado").on("submit", function () {
-    if (operacao == "A")
-      return Adicionar();
-    else
+    if (operacao == "A") {
+      return Criar();
+    } else
       return Editar();
   });
+
   // Ação com base nos eventos do botão Editar
   $("#tblListar").on("click", ".btnEditar", function () {
     operacao = "E";
@@ -168,7 +180,6 @@ $(function () {
     var cli = JSON.parse(tbChamados[indice_selecionado]);
     $("#Codigo").val(cli.Codigo);
     $("#Data").val(cli.Data);
-    $("#Hora").val(cli.Hora);
     $("#Categoria").val(cli.Categoria);
     $("#Problema").val(cli.Problema);
     $("#Usuario").val(cli.Usuario);
@@ -178,6 +189,30 @@ $(function () {
     $("#Nome").focus();
   });
 
+  // Status
+  $("#Prioridade").change(function () {
+		//alert( $( this ).val() );
+		var Prioridade = $(this).val();
+
+		if (Prioridade == "Baixo") {
+			$("#Status").val('Aberto');
+
+		} else if (Prioridade == "Médio")
+			$("#Status").val('Em andamento');
+
+      else 
+      $("Status").val('Finalizado')
+	});
+
+  // if (Prioridade == "Baixo") {
+  //   $("#Status").val('Em andamento');
+  // } else if (Prioridade == "Medio") {
+  //   $("#Status").val('Finalizado');
+  // }
+  // else
+  //   $("#Status").val('Aberto');
+
+
   // Código automatico
 
   var ultimo = JSON.parse(tbChamados.slice(-1));
@@ -185,45 +220,39 @@ $(function () {
   $("#Codigo").val(ultconv + 1);
 
 
-             
-  
-  
-  // Status
-  // if (pessoa == "Wilson") {
-  //   $("#txtStatus").val('Em aberto');
-  //   } else
-  //   $("#txtStatus").val('Em andamento');
-  //   });
-    
-    /* Ação com base nos eventos do botão novo
-    $( "#btnNovo").click(function() {
-    
-    $("#txtNome").prop('disabled', false);
-    $("#txtTelefone").prop('disabled', false);
 
-    
-    $("#txtEmail").prop('disabled', false);
-    
-     });*/
-    
-
-  // Ação com base nos eventos do botão Excluir
   $("#tblListar").on("click", ".btnExcluir", function () {
     indice_selecionado = parseInt($(this).attr("alt"));
     Excluir();
-    Listar();
+    Ler();
 
 
 
 
     /* Ação com base nos eventos do botão novo
     $( "#btnNovo").click(function() {
-    
-     $("#txtNome").prop('disabled', false);
-     $("#txtTelefone").prop('disabled', false);
-    $("#txtEmail").prop('disabled', false);
-    
-     });*/
+      
+      $("#txtNome").prop('disabled', false);
+      $("#txtTelefone").prop('disabled', false);
+      
+      
+      $("#txtEmail").prop('disabled', false);
+      
+    });*/
+
+
+    // Ação com base nos eventos do botão Excluir
+
+
+
+    /* Ação com base nos eventos do botão novo
+    $( "#btnNovo").click(function() {
+      
+      $("#txtNome").prop('disabled', false);
+      $("#txtTelefone").prop('disabled', false);
+      $("#txtEmail").prop('disabled', false);
+      
+    });*/
 
 
     // Obtém a data/hora atual

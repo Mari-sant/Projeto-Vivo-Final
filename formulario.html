@@ -44,12 +44,6 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="index.html">Login</a>
                             </li>
-
-                            <!--colocando link da página de consulta-->
-                            <li class="nav-item">
-                                <a class="nav-link" href="consulta.html">Consulta</a>
-                            </li>
-
                     </div>
                 </div>
             </nav>
@@ -100,20 +94,18 @@
             <div class=" form-group">
                 <label for="Usuario"><b>Nome do usuário</b></label>
                 <input type="text" class="form-control" id="Usuario" placeholder="Digite o nome de usuário" required>
-            </div><br>
+            </div>
                <!-- Prioridade do chamado -->
-            <div class="form_group">
-                    <p><b>Qual a prioridade do chamado?</b></p>
-                    <label>
-                        <input name="Prioridade" value="Baixo" type="radio" class="input_radio" id="Prioridade" checked> <b>Baixo</b>
-                    </label>
-                    <label>
-                        <input name="Prioridade" value="Médio" type="radio" class="input_radio" id="Prioridade"> <b>Médio</b>
-                    </label>
-                    <label>
-                        <input name="Prioridade" value="Alto" type="radio" class="input_radio" id="Prioridade"> <b>Alto</b>
-                    </label>
-                </div>
+               <div class=" form-group">
+                <label for="Prioridade"><b>Prioridade</b></label>
+                <select id="Prioridade" class="form-control" placeholder="Selecione a prioridade">
+                    <option value="">- Selecione -</option>
+                    <option value="Baixo">Baixo</option>
+                    <option value="Médio">Médio</option>
+                    <option value="Alto">Alto </option>
+                </select>
+            </div><br>
+
                 <!-- Status -->
                 <div class="form_group">
                     <label><b>Status :</b></label>
